@@ -23,33 +23,39 @@ DateRanger = Struct.new(:date_str) do
   end
 
   def parse_compound_date date_str
-    date_str  
+    date = date_str.split('-')
+    ranger_hash(parse_date(date[0], :start), parse_date(date[1], :end))
   end
 
   def parse_single_date date_str
+    ranger_hash(parse_date(date_str, :start), parse_date(date_str, :end))
+  end
+
+  def parse_date date_str, side
     if date_str.include? 'n.d.'
       # no date marker
       ranger_hash(nil, nil)
     elsif (date_str.end_with? 's')
       # we know that we’re dealing with a decade
       decade_str = date_str.chomp('s')
-      ranger_hash(decade_bounds(decade_str, :start), decade_bounds(decade_str, :end))
+      decade_bounds(decade_str, side)
     elsif (is_year?(date_str))
       # we have just a 4-digit year
-      ranger_hash(year_bounds(date_str, :start), year_bounds(date_str, :end))
+      year_bounds(date_str, side)
     elsif (is_month_and_year?(date_str))
       # we have a 'Nov 1756', 'Feb-1945' or 'Feb-45' format
-      ranger_hash(month_bounds(date_str, :start), month_bounds(date_str, :end))
+      month_bounds(date_str, side)
     elsif (is_day_month_and_year?(date_str))
       # we have a '23 Feb 1985' or '23-Feb-1985' format
-      ranger_hash(day_bounds(date_str, :start), day_bounds(date_str, :end))
+      day_bounds(date_str, side)
     end
   end
 
   def is_compound_date? date_str
-    if date_str.include? '-'
+    hyphen_count = date_str.scan(/-/).count
+    if hyphen_count == 1
       puts date_str
-      false
+      true
     else
       false
     end
