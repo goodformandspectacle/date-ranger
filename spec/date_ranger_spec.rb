@@ -65,5 +65,9 @@ RSpec.describe 'DateRanger' do
       expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1865, 1, 1), Date.new(1866, 12, 31))
     end
 
+    it 'converts 1865-1866 to the right range even with spaces' do
+      date_str = '1865 - 1866'
+      expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1865, 1, 1), Date.new(1866, 12, 31))
+    end
   end
 end
