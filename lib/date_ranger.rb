@@ -10,6 +10,23 @@ DateRanger = Struct.new(:date_str) do
     date_str.gsub!('circa', '')
     date_str.strip!
 
+    if is_compound_date? date_str
+      parse_compound_date date_str
+    else
+      parse_single_date date_str
+    end
+
+  end
+
+  def ranger_hash start_date, end_date
+    { start_date: start_date, end_date: end_date }
+  end
+
+  def parse_compound_date date_str
+    date_str  
+  end
+
+  def parse_single_date date_str
     if date_str.include? 'n.d.'
       # no date marker
       ranger_hash(nil, nil)
@@ -29,8 +46,13 @@ DateRanger = Struct.new(:date_str) do
     end
   end
 
-  def ranger_hash start_date, end_date
-    { start_date: start_date, end_date: end_date }
+  def is_compound_date? date_str
+    if date_str.include? '-'
+      puts date_str
+      false
+    else
+      false
+    end
   end
 
   def is_year?(date_str, start_time=1500, end_time=2099)
