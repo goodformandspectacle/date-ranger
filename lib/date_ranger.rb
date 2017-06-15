@@ -57,11 +57,17 @@ DateRanger = Struct.new(:date_str) do
   def is_compound_date? date_str
     hyphen_count = date_str.scan(/-/).count
     if hyphen_count == 1
-      puts date_str
-      true
+      puts 'checking validity'
+      is_valid_date?(date_str)
     else
       false
     end
+  end
+
+  def is_valid_date? str
+    # check if the latter part is a full date
+    # by checking if it’s a month-year setup, otherwise it’s a compound
+    !is_month_and_year?(str)
   end
 
   def is_year?(date_str, start_time=1500, end_time=2099)
