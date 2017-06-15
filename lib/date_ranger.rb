@@ -12,6 +12,8 @@ DateRanger = Struct.new(:date_str) do
 
     if is_compound_date? date_str
       parse_compound_date date_str
+    elsif date_str.include? 'n.d.'
+      parse_no_date date_str
     else
       parse_single_date date_str
     end
@@ -31,11 +33,12 @@ DateRanger = Struct.new(:date_str) do
     ranger_hash(parse_date(date_str, :start), parse_date(date_str, :end))
   end
 
+  def parse_no_date date_str
+    ranger_hash(nil, nil)
+  end
+
   def parse_date date_str, side
-    if date_str.include? 'n.d.'
-      # no date marker
-      ranger_hash(nil, nil)
-    elsif (date_str.end_with? 's')
+    if (date_str.end_with? 's')
       # we know that we’re dealing with a decade
       decade_str = date_str.chomp('s')
       decade_bounds(decade_str, side)
