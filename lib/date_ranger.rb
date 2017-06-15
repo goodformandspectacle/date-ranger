@@ -21,7 +21,7 @@ DateRanger = Struct.new(:date_str) do
       # we have a 'Nov 1756' or 'Feb-1945' format
       ranger_hash(beginning_of_month(date_str), end_of_month(date_str))
     elsif (is_day_month_and_year?(date_str))
-      # we have a '23 Feb 1985' format
+      # we have a '23 Feb 1985' or '23-Feb-1985' format
       ranger_hash(beginning_of_day(date_str), end_of_day(date_str))
     end
   end
@@ -77,7 +77,7 @@ DateRanger = Struct.new(:date_str) do
   end
 
   def is_day_month_and_year? date_str
-    Date.strptime(date_str, '%d %b %Y') rescue false
+    Date.strptime(date_str, '%d %b %Y') rescue false or Date.strptime(date_str, '%d-%b-%Y') rescue false
   end
 
   def cleanup str

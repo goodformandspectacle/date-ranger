@@ -42,8 +42,13 @@ RSpec.describe 'DateRanger' do
     expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1945, 11, 1), Date.new(1945, 11, 30))
   end
 
-  it 'converts 17 Feb 1865 date to a day range' do
+  it 'converts 17 Feb 1945 date to a day range' do
     date_str = '17 Feb 1945'
+    expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1945, 2, 17), Date.new(1945, 2, 17))
+  end
+
+  it 'converts 17-Feb-1945 date to a day range' do
+    date_str = '17-Feb-1945'
     expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1945, 2, 17), Date.new(1945, 2, 17))
   end
 end
