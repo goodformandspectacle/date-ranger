@@ -57,7 +57,6 @@ DateRanger = Struct.new(:date_str) do
   def is_compound_date? date_str
     hyphen_count = date_str.scan(/-/).count
     if hyphen_count == 1
-      puts 'checking validity'
       is_valid_date?(date_str)
     else
       false
