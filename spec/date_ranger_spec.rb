@@ -1,8 +1,8 @@
 require 'date_ranger'
 
 RSpec.describe 'DateRanger' do
-  def result_hash beginning_date, end_date
-    { beginning_date: beginning_date, end_date: end_date }
+  def result_hash start_date, end_date
+    { start_date: start_date, end_date: end_date }
   end
 
   it 'converts 1990s to a range covering the nineties' do

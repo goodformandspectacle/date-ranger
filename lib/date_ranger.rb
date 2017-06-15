@@ -29,8 +29,8 @@ DateRanger = Struct.new(:date_str) do
     end
   end
 
-  def ranger_hash beginning_date, end_date
-    { beginning_date: beginning_date, end_date: end_date }
+  def ranger_hash start_date, end_date
+    { start_date: start_date, end_date: end_date }
   end
 
   def is_year?(date_str, start_time=1500, end_time=2099)
