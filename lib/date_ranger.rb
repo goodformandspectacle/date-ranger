@@ -41,14 +41,7 @@ DateRanger = Struct.new(:date_str) do
 
   def beginning_of_month month_str
     if month_str.include? '-'
-      date = nil
-      if month_str.match(/\d{4}/)
-        date = Date.strptime(month_str, '%b-%Y') rescue nil
-        Date.new(date.year, date.month, 1)
-      else
-        str = month_str.split('-')
-        Date.new("19#{str[1]}".to_i, Date::ABBR_MONTHNAMES.index(str[0]) , 1)
-      end
+      deal_with_hyphenated_month month_str, 1
     else
       date = Date._parse(month_str)
       Date.new(date[:year], date[:mon], 1)
@@ -57,14 +50,7 @@ DateRanger = Struct.new(:date_str) do
 
   def end_of_month month_str
     if month_str.include? '-'
-      date = nil
-      if month_str.match(/\d{4}/)
-        date = Date.strptime(month_str, '%b-%Y') rescue nil
-        Date.new(date.year, date.month, -1)
-      else
-        str = month_str.split('-')
-        Date.new("19#{str[1]}".to_i, Date::ABBR_MONTHNAMES.index(str[0]) , -1)
-      end
+      deal_with_hyphenated_month month_str, -1
     else
       date = Date._parse(month_str)
       Date.new(date[:year], date[:mon], -1)
@@ -102,10 +88,16 @@ DateRanger = Struct.new(:date_str) do
     Date.strptime(date_str, '%d %b %Y') rescue false or Date.strptime(date_str, '%d-%b-%Y') rescue false
   end
 
-  def cleanup str
-    str.gsub!('c.', '')
-    str.gsub!('circa', '')
-    str.strip!
+  def deal_with_hyphenated_month month_str, day_int
+    date = nil
+    if month_str.match(/\d{4}/)
+      # 4-digit year
+      date = Date.strptime(month_str, '%b-%Y') rescue nil
+      Date.new(date.year, date.month, day_int)
+    else
+      # 2-digit year
+      str = month_str.split('-')
+      Date.new("19#{str[1]}".to_i, Date::ABBR_MONTHNAMES.index(str[0]) , day_int)
+    end
   end
-
 end
