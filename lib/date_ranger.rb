@@ -62,9 +62,7 @@ DateRanger = Struct.new(:date_str) do
         date = Date.strptime(month_str, '%b-%Y') rescue nil
         Date.new(date.year, date.month, -1)
       else
-        puts month_str
         str = month_str.split('-')
-        puts str
         Date.new("19#{str[1]}".to_i, Date::ABBR_MONTHNAMES.index(str[0]) , -1)
       end
     else
