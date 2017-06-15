@@ -18,7 +18,7 @@ DateRanger = Struct.new(:date_str) do
       # we have just a 4-digit year
       ranger_hash(beginning_of_year(date_str), end_of_year(date_str))
     elsif (is_month_and_year?(date_str))
-      # we have a 'Nov 1756' or 'Feb-1945' format
+      # we have a 'Nov 1756', 'Feb-1945' or 'Feb-45' format
       ranger_hash(beginning_of_month(date_str), end_of_month(date_str))
     elsif (is_day_month_and_year?(date_str))
       # we have a '23 Feb 1985' or '23-Feb-1985' format
@@ -40,13 +40,37 @@ DateRanger = Struct.new(:date_str) do
   end
 
   def beginning_of_month month_str
-    date = Date._parse(month_str)
-    Date.new(date[:year], date[:mon], 1)
+    if month_str.include? '-'
+      date = nil
+      if month_str.match(/\d{4}/)
+        date = Date.strptime(month_str, '%b-%Y') rescue nil
+        Date.new(date.year, date.month, 1)
+      else
+        str = month_str.split('-')
+        Date.new("19#{str[1]}".to_i, Date::ABBR_MONTHNAMES.index(str[0]) , 1)
+      end
+    else
+      date = Date._parse(month_str)
+      Date.new(date[:year], date[:mon], 1)
+    end
   end
 
   def end_of_month month_str
-    date = Date._parse(month_str)
-    Date.new(date[:year], date[:mon], -1)
+    if month_str.include? '-'
+      date = nil
+      if month_str.match(/\d{4}/)
+        date = Date.strptime(month_str, '%b-%Y') rescue nil
+        Date.new(date.year, date.month, -1)
+      else
+        puts month_str
+        str = month_str.split('-')
+        puts str
+        Date.new("19#{str[1]}".to_i, Date::ABBR_MONTHNAMES.index(str[0]) , -1)
+      end
+    else
+      date = Date._parse(month_str)
+      Date.new(date[:year], date[:mon], -1)
+    end
   end
 
   def beginning_of_year year_str
@@ -73,7 +97,7 @@ DateRanger = Struct.new(:date_str) do
   def is_month_and_year? date_str
     # check that we have only month and year
     date_hash = Date._parse(date_str)
-    date_hash.has_key?(:year) and date_hash.has_key?(:mon) and !date_hash.has_key?(:mday)
+    (date_hash.has_key?(:year) and date_hash.has_key?(:mon) and !date_hash.has_key?(:mday)) or Date.strptime(date_str, '%b-%y') rescue false
   end
 
   def is_day_month_and_year? date_str

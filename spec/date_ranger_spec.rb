@@ -37,6 +37,11 @@ RSpec.describe 'DateRanger' do
     expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1867, 11, 1), Date.new(1867, 11, 30))
   end
 
+  it 'converts a month with a two digit year and hyphen to a month range' do
+    date_str = 'Nov-67'
+    expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1967, 11, 1), Date.new(1967, 11, 30))
+  end
+
   it 'converts c. Nov 1856 type date to a month range' do
     date_str = 'c. Nov 1945'
     expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1945, 11, 1), Date.new(1945, 11, 30))
