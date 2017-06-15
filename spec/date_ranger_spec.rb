@@ -74,5 +74,10 @@ RSpec.describe 'DateRanger' do
       date_str = '1856-15 Feb 1857'
       expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1856, 1, 1), Date.new(1857, 2, 15))
     end
+
+    it 'converts Feb 1875-March 1875 to the right range' do
+      date_str = 'Feb 1875-March 1875'
+      expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1875, 2, 1), Date.new(1875, 3, 31))
+    end
   end
 end

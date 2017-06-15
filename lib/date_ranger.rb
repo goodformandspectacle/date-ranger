@@ -76,8 +76,9 @@ DateRanger = Struct.new(:date_str) do
 
   def is_month_and_year? date_str
     # check that we have only month and year
-    date_hash = Date._parse(date_str)
-    (date_hash.has_key?(:year) and date_hash.has_key?(:mon) and !date_hash.has_key?(:mday)) or Date.strptime(date_str, '%b-%y') rescue false
+    # date_hash = Date._parse(date_str)
+    date_str.scan(/^[a-zA-Z]{3,4}(\s|-){1}\d{2,4}$/).count > 0
+    # (date_hash.has_key?(:year) and date_hash.has_key?(:mon) and !date_hash.has_key?(:mday)) or Date.strptime(date_str, '%b-%y') rescue false
   end
 
   def is_day_month_and_year? date_str
