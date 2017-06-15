@@ -18,7 +18,7 @@ DateRanger = Struct.new(:date_str) do
       # we have just a 4-digit year
       ranger_hash(beginning_of_year(date_str), end_of_year(date_str))
     elsif (is_month_and_year?(date_str))
-      # we have a 'Nov 1756' format
+      # we have a 'Nov 1756' or 'Feb-1945' format
       ranger_hash(beginning_of_month(date_str), end_of_month(date_str))
     elsif (is_day_month_and_year?(date_str))
       # we have a '23 Feb 1985' format
