@@ -26,7 +26,9 @@ DateRanger = Struct.new(:date_str) do
 
   def parse_compound_date date_str
     date = date_str.split('-')
-    if is_first_part_year_implied? date[0]
+    if is_first_part_month_and_year_implied? date[0]
+      ranger_hash(parse_date("#{date[0].strip} #{get_month(date[1])} #{get_year(date[1])}", :start), parse_date(date[1].strip(), :end))
+    elsif is_first_part_year_implied? date[0]
       ranger_hash(parse_date("#{date[0].strip} #{get_year(date[1])}", :start), parse_date(date[1].strip(), :end))
     else
       ranger_hash(parse_date(date[0].strip(), :start), parse_date(date[1].strip(), :end))
@@ -67,6 +69,10 @@ DateRanger = Struct.new(:date_str) do
     end
   end
 
+  def is_first_part_month_and_year_implied? str
+    str.strip().match(/^\d{1,2}$/)
+  end
+
   def is_first_part_year_implied? str
     str.strip().scan(/\d{2,4}$/).count == 0
   end
@@ -91,6 +97,10 @@ DateRanger = Struct.new(:date_str) do
 
   def is_day_month_and_year? date_str
     Date.strptime(date_str, '%d %b %Y') rescue false or Date.strptime(date_str, '%d-%b-%Y') rescue false
+  end
+
+  def get_month str
+    str.strip().match(/[a-zA-z]{3,4}/)
   end
 
   def get_year str

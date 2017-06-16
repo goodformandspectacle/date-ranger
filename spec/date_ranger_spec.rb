@@ -91,7 +91,7 @@ RSpec.describe 'DateRanger' do
     end
   end
 
-  describe 'compound dates where first part is missing year info' do
+  describe 'compound dates where the first part is missing year info' do
     it 'converts Jan - Mar 1995 to the right range' do
       date_str = 'Jan - Mar 1995'
       expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1995, 1, 1), Date.new(1995, 3, 31))
@@ -99,6 +99,13 @@ RSpec.describe 'DateRanger' do
 
     it 'converts 21 Mar - 23 Mar 1985 to the right range' do
       date_str = '21 Mar - 23 Mar 1985'
+      expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1985, 3, 21), Date.new(1985, 3, 23))
+    end
+  end
+
+  describe 'compound dates where the first part is missing month and year info' do
+    it 'converts 21 - 23 Mar 1985 to the right range' do
+      date_str = '21 - 23 Mar 1985'
       expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1985, 3, 21), Date.new(1985, 3, 23))
     end
   end
