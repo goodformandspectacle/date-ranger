@@ -8,17 +8,17 @@ Add to your project both the `date_ranger.rb` and `bounds.rb` files. You can fin
 
 Include DateRanger in the file where you intend to use it:
 
-```
+```ruby
 require './date_ranger'
 ```
 
 Parsing dates looks like this:
-```
+```ruby
 DateRanger.new('c. 1995').parse
 ```
 
 Which returns a hash of range bounds:
-```
+```ruby
 {:start_date=>#<Date: 1995-01-01 ((2449719j,0s,0n),+0s,2299161j)>, :end_date=>#<Date: 1995-12-31 ((2450083j,0s,0n),+0s,2299161j)>}
 ```
 
