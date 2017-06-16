@@ -4,7 +4,7 @@ DateRanger Ruby class used for determining date ranges for dates pulled out of m
 
 ## Why
 
-Most dates attached to collection object express a range of dates, but the [formats used](https://gist.github.com/george08/4a115d95137827829e1419fcb5c0bd99) vary. In order to allow a more standardised way of storing those date ranges we need to parse them into a more reusable format.
+Most dates attached to museum collection objects express a range of dates, but the [formats used](https://gist.github.com/george08/4a115d95137827829e1419fcb5c0bd99) vary. In order to allow a more standardised way of storing those date ranges we need to parse them into a more reusable format.
 
 This library parses the common date formats and decides what they mean. Some ranges are expressed as a single date (eg. '1990s'), others as a range ('Jan-Mar 1985'), and yet others are very precise ('23 Jun 1945'). The library provides the information about the start and end of the range.
 
