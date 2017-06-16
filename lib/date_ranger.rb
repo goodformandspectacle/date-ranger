@@ -26,7 +26,11 @@ DateRanger = Struct.new(:date_str) do
 
   def parse_compound_date date_str
     date = date_str.split('-')
-    ranger_hash(parse_date(date[0].strip(), :start), parse_date(date[1].strip(), :end))
+    if is_first_part_year_implied? date[0]
+      ranger_hash(parse_date("#{date[0].strip} #{get_year(date[1])}", :start), parse_date(date[1].strip(), :end))
+    else
+      ranger_hash(parse_date(date[0].strip(), :start), parse_date(date[1].strip(), :end))
+    end
   end
 
   def parse_single_date date_str
@@ -63,6 +67,10 @@ DateRanger = Struct.new(:date_str) do
     end
   end
 
+  def is_first_part_year_implied? str
+    str.strip().scan(/\d{2,4}$/).count == 0
+  end
+
   def is_valid_date? str
     # check if the latter part is a full date
     # by checking if it’s a month-year setup, otherwise it’s a compound
@@ -83,6 +91,10 @@ DateRanger = Struct.new(:date_str) do
 
   def is_day_month_and_year? date_str
     Date.strptime(date_str, '%d %b %Y') rescue false or Date.strptime(date_str, '%d-%b-%Y') rescue false
+  end
+
+  def get_year str
+    str.strip().match(/\d{2,4}$/)
   end
 
   def deal_with_hyphenated_month month_str, day_int
