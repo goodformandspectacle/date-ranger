@@ -1,5 +1,5 @@
 require 'date'
-require 'bounds'
+require_relative 'bounds'
 
 DateRanger = Struct.new(:date_str) do
   include Bounds
