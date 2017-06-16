@@ -26,7 +26,7 @@ DateRanger = Struct.new(:date_str) do
 
   def parse_compound_date date_str
     date = date_str.split('-')
-    ranger_hash(parse_date(date[0], :start), parse_date(date[1], :end))
+    ranger_hash(parse_date(date[0].strip(), :start), parse_date(date[1].strip(), :end))
   end
 
   def parse_single_date date_str
