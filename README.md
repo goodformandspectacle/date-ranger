@@ -2,6 +2,12 @@
 
 DateRanger Ruby class used for determining date ranges for dates pulled out of museum collections. The [list of date formats](https://gist.github.com/george08/4a115d95137827829e1419fcb5c0bd99) this class can parse is maintained by [george08](https://github.com/george08).
 
+## Why
+
+Most dates attached to collection object express a range of dates, but the [formats used](https://gist.github.com/george08/4a115d95137827829e1419fcb5c0bd99) vary. In order to allow a more standardised way of storing those date ranges we need to parse them into a more reusable format.
+
+This library parses the common date formats and decides what they mean. Some ranges are expressed as a single date (eg. '1990s'), others as a range ('Jan-Mar 1985'), and yet others are very precise ('23 Jun 1945'). The library provides the information about the start and end of the range.
+
 ## Usage
 
 Add to your project both the `date_ranger.rb` and `bounds.rb` files. You can find them in the `lib` directory.
@@ -12,7 +18,7 @@ Include DateRanger in the file where you intend to use it:
 require './date_ranger'
 ```
 
-Parsing dates looks like this:
+The library accepts date input as a string. Parsing dates looks like this:
 ```ruby
 DateRanger.new('c. 1995').parse
 ```
