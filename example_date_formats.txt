@@ -1,0 +1,21 @@
+YYYY
+YYYYs
+dd Mon YYYY
+dd-Mon-YY
+dd Mon YYYY-c.YYYY
+dd Mon YYYY-YYYY
+dd Mon-dd Mon YYYY
+dd Mon YYYY-YYYY
+dd Mon YYYY-Mon YYYY
+dd Mon YYYY-dd Mon YYYY
+YYYY-YYYY
+YYYY-YYYYs
+YYYY-dd Mon YYYY
+Mon YYYY-Mon YYYY
+Mon YYYY
+Mon-YY
+Mon-Mon YYYY
+Mon YYYY-Mon YYYY
+c.YYYY
+c.YYYY-YYYY
+n.d.
