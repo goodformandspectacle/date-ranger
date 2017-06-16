@@ -17,7 +17,7 @@ Parsing dates looks like this:
 DateRanger.new('c. 1995').parse
 ```
 
-Which returns a hash of range bounds:
+Which returns a hash of range bounds, expressed as Date objects:
 ```ruby
 {:start_date=>#<Date: 1995-01-01 ((2449719j,0s,0n),+0s,2299161j)>, :end_date=>#<Date: 1995-12-31 ((2450083j,0s,0n),+0s,2299161j)>}
 ```
