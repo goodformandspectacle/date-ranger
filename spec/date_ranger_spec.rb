@@ -96,5 +96,10 @@ RSpec.describe 'DateRanger' do
       date_str = 'Jan - Mar 1995'
       expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1995, 1, 1), Date.new(1995, 3, 31))
     end
+
+    it 'converts 21 Mar - 23 Mar 1985 to the right range' do
+      date_str = '21 Mar - 23 Mar 1985'
+      expect(DateRanger.new(date_str).parse).to eq result_hash(Date.new(1985, 3, 21), Date.new(1985, 3, 23))
+    end
   end
 end
